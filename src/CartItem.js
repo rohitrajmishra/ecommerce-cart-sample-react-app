@@ -24,6 +24,13 @@ class CartItem extends Component {
 
   decreaseQuantity = () => {
     console.log("this.state", this.state);
+
+    // Do not decrease if qty is already 0
+    const { qty } = this.state;
+    if(qty === 0){
+      return;
+    }
+
     // setState form2 with prevState
     this.setState((prevState) => {
       return {
