@@ -49,7 +49,7 @@ class Cart extends Component {
     const index = products.indexOf(product);
 
     // Check if qty is not already 0
-    if (products[index].qty === 0){
+    if (products[index].qty === 0) {
       return;
     }
 
@@ -57,6 +57,17 @@ class Cart extends Component {
 
     this.setState({
       products: products,
+    });
+  };
+
+  // Delete button handler
+  handleDeleteProduct = (id) => {
+    const { products } = this.state;
+    // Get array of all items expect deleted one and replace in state
+    const items = products.filter((item) => item.id !== id);
+
+    this.setState({
+      products: items,
     });
   };
 
@@ -71,6 +82,7 @@ class Cart extends Component {
               product={product}
               onIncreaseQty={this.handleIncreaseQty}
               onDecreaseQty={this.handleDecreaseQty}
+              onDeleteProduct={this.handleDeleteProduct}
             />
           );
         })}
