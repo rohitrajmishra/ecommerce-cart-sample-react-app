@@ -1,15 +1,6 @@
 import React, { Component } from "react";
 
 class CartItem extends Component {
-  constructor() {
-    super();
-    this.state = {
-      price: 999,
-      title: "Phone",
-      qty: 1,
-      img: "",
-    };
-  }
 
   increaseQuantity = () => {
     console.log("this.state", this.state);
@@ -40,7 +31,9 @@ class CartItem extends Component {
   };
 
   render() {
-    const { title, price, qty, img } = this.state;
+    console.log('props', this.props);
+    // const { title, price, qty, img } = this.state;
+    const { title, price, qty, img } = this.props.product;
     return (
       <div className="cart-item">
         <div className="left-block">
