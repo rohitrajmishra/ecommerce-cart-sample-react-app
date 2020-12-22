@@ -43,6 +43,23 @@ class Cart extends Component {
     });
   };
 
+  handleDecreaseQty = (product) => {
+    // console.log("Hangle qty++ for ", product);
+    const { products } = this.state;
+    const index = products.indexOf(product);
+
+    // Check if qty is not already 0
+    if (products[index].qty === 0){
+      return;
+    }
+
+    products[index].qty -= 1;
+
+    this.setState({
+      products: products,
+    });
+  };
+
   render() {
     const { products } = this.state;
     return (
@@ -53,6 +70,7 @@ class Cart extends Component {
               key={product.id}
               product={product}
               onIncreaseQty={this.handleIncreaseQty}
+              onDecreaseQty={this.handleDecreaseQty}
             />
           );
         })}
