@@ -2,36 +2,8 @@ import React, { Component } from "react";
 
 class CartItem extends Component {
 
-  increaseQuantity = () => {
-    console.log("this.state", this.state);
-    // setState form2 with prevState
-    this.setState((prevState) => {
-      return {
-        qty: prevState.qty + 1,
-      };
-    });
-  };
-
-
-  decreaseQuantity = () => {
-    console.log("this.state", this.state);
-
-    // Do not decrease if qty is already 0
-    const { qty } = this.state;
-    if(qty === 0){
-      return;
-    }
-
-    // setState form2 with prevState
-    this.setState((prevState) => {
-      return {
-        qty: prevState.qty - 1,
-      };
-    });
-  };
-
   render() {
-    console.log('props', this.props);
+    // console.log('props', this.props);
     // const { title, price, qty, img } = this.state;
     const { title, price, qty, img } = this.props.product;
     return (
@@ -46,7 +18,7 @@ class CartItem extends Component {
 
           <div className="cart-item-actions">
             <img
-              onClick={this.increaseQuantity}
+              onClick={() => this.props.onIncreaseQty(this.props.product)}
               src="https://www.flaticon.com/svg/static/icons/svg/149/149145.svg"
               className="action-icons"
               alt="increase"
