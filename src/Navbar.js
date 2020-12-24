@@ -1,17 +1,18 @@
 import React from "react";
 
 const Navbar = () => {
-    return (
-      <div style={styles.nav}>
-        <div style={styles.cartIconContainer}>
-          <img style={styles.cartIcon}
-            src="https://www.flaticon.com/svg/static/icons/svg/1170/1170576.svg"
-            alt="Cart-icon"
-          />
-          <span style={styles.cartCount}>3</span>
-        </div>
+  return (
+    <div style={styles.nav}>
+      <div style={styles.cartIconContainer}>
+        <img
+          style={styles.cartIcon}
+          src="https://www.flaticon.com/svg/static/icons/svg/1170/1170576.svg"
+          alt="Cart-icon"
+        />
+        <span style={styles.cartCount}>3</span>
       </div>
-    );
+    </div>
+  );
 };
 
 const styles = {
