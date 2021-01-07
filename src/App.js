@@ -11,50 +11,27 @@ class App extends Component {
       products: [],
       loading: true,
     };
+    this.db = firebase.firestore();
   }
 
   componentDidMount() {
-    // firebase
-    //   .firestore()
-    //   .collection("products")
-    //   .get()
-    //   .then((snapshot) => {
-    //     // console.log(snapshot.docs);
-    //     // snapshot.docs.map((doc) => {
-    //     //   console.log(doc.data());
-    //     // });
-    //     const products = snapshot.docs.map((doc) => {
-    //       const data = doc.data();
-    //       data["id"] = doc.id;
-    //       return data;
-    //     });
-    //
-    //     console.log(products);
-    //     this.setState({
-    //       products: products,
-    //     });
-    //   });
-
-    firebase
-      .firestore()
-      .collection("products")
-      .onSnapshot((snapshot) => {
-        // console.log(snapshot.docs);
-        // snapshot.docs.map((doc) => {
-        //   console.log(doc.data());
-        // });
-        const products = snapshot.docs.map((doc) => {
-          const data = doc.data();
-          data["id"] = doc.id;
-          return data;
-        });
-
-        // console.log(products);
-        this.setState({
-          products: products,
-          loading: false,
-        });
+    this.db.collection("products").onSnapshot((snapshot) => {
+      // console.log(snapshot.docs);
+      // snapshot.docs.map((doc) => {
+      //   console.log(doc.data());
+      // });
+      const products = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        data["id"] = doc.id;
+        return data;
       });
+
+      // console.log(products);
+      this.setState({
+        products: products,
+        loading: false,
+      });
+    });
   }
 
   handleIncreaseQty = (product) => {
@@ -119,11 +96,33 @@ class App extends Component {
     return cartTotal;
   };
 
+  // addProduct
+  addProduct = () => {
+    this.db
+      .collection("products")
+      .add({
+        price: 100,
+        title: "Tomato",
+        qty: 12,
+        img:
+          "https://images.unsplash.com/photo-1558818498-28c1e002b655?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
+      })
+      .then((docRef) => {
+        console.log("Product has been added successfully", docRef);
+      })
+      .catch((err) => {
+        console.log("Error : ", err);
+      });
+  };
+
   render() {
     const { products, loading } = this.state;
     return (
       <div className="App">
         <Navbar count={this.getCartCount()} />
+        <button onClick={this.addProduct} style={{ padding: 20, fontSize: 20 }}>
+          Add a product
+        </button>
         <Cart
           products={products}
           onIncreaseQty={this.handleIncreaseQty}
