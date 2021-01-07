@@ -87,11 +87,19 @@ class App extends Component {
   handleDeleteProduct = (id) => {
     const { products } = this.state;
     // Get array of all items expect deleted one and replace in state
-    const items = products.filter((item) => item.id !== id);
+    // const items = products.filter((item) => item.id !== id);
+    //
+    // this.setState({
+    //   products: items,
+    // });
 
-    this.setState({
-      products: items,
-    });
+    const docRef = this.db.collection("products").doc(id);
+    docRef
+      .delete()
+      .then(() =>{
+        console.log("Product deleted successfully");
+      })
+      .catch((err) => console.log("Error: ", err));
   };
 
   // getCartCount
