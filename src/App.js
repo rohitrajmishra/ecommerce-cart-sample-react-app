@@ -51,7 +51,7 @@ class App extends Component {
         qty: products[index].qty + 1,
       })
       .then(() => {
-        console.log("Updated successfully");
+        console.log("handleIncreaseQty -> DB Updated successfully");
       })
       .catch((err) => console.log("Error: ", err));
   };
@@ -66,11 +66,21 @@ class App extends Component {
       return;
     }
 
-    products[index].qty -= 1;
+    // products[index].qty -= 1;
+    //
+    // this.setState({
+    //   products: products,
+    // });
 
-    this.setState({
-      products: products,
-    });
+    const docRef = this.db.collection("products").doc(products[index].id);
+    docRef
+      .update({
+        qty: products[index].qty - 1,
+      })
+      .then(() =>{
+        console.log("handleDecreaseQty -> DB Updated successfully");
+      })
+      .catch((err) => console.log("Error: ", err));
   };
 
   // Delete button handler
